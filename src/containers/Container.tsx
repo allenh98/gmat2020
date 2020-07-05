@@ -5,8 +5,10 @@ import TopBar from '../bars/TopBar';
 import './Containers.css';
 import AnswerButton from '../answer-form/AnswerButton';
 import Question from '../answer-form/Question';
-import Solution from '../answer-form/Solution';
+import Solutions from '../answer-form/Solutions';
 import '../answer-form/Answers.css';
+import '../answer-form/Solutions.css';
+import '../answer-form/Buttons.css';
 import ViewSolutionsButton from '../answer-form/ViewSolutionsButton';
 import MultipleChoiceBox from '../answer-form/MultipleChoiceBox';
 // import image from '../../public/grayuser.png';
@@ -172,13 +174,13 @@ export default class Container extends React.Component<IContainerProps, IContain
                             correctLetter={this.state.activeQuestion.correctLetter} updateSelectedAnswer={this.updateSelectedAnswer}
                             submitButtonClicked={this.state.submitButtonClicked}
                         />
-                        <form className="flex-buttons-container">
+                        <form className="buttonsContainerLeft">
                             <AnswerButton onSubmitButtonClicked={this.onSubmitButtonClicked} doDisable={this.shouldDisableSubmit()} />
-                            <ViewSolutionsButton className="flex-buttons-container-right" toggleViewSolution={this.toggleViewSolution} viewButtonClicked={this.state.viewButtonClicked}/>
+                            <ViewSolutionsButton  toggleViewSolution={this.toggleViewSolution} viewButtonClicked={this.state.viewButtonClicked}/>
                         </form>    
                         
                         {
-                            this.state.viewButtonClicked && <Solution solution={this.state.activeSolution} solutions={this.state.activeQuestion.userAnswers}/> 
+                            this.state.viewButtonClicked && <Solutions solution={this.state.activeSolution} solutions={this.state.activeQuestion.userAnswers}/> 
                         }        
                       
                     </div>

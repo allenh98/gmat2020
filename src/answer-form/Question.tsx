@@ -6,7 +6,7 @@ export default function Question(props: any){
     return (
         <React.Fragment>
             <h1>
-                Question 1 of 200
+                Question {props.idx + 1} of {props.total}
             </h1>
             <p className="question">
                 {ReactHtmlParser(props.question)}

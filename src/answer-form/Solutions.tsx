@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import '../answer-form/Answers.css';
 
-export default function Solution(props: any) {
+export default function Solutions(props: any) {
 
 
     return (
@@ -10,7 +9,7 @@ export default function Solution(props: any) {
                 <ul>
                     {props.solutions.map((el:any, i:number) => {
                         return (
-                            <li>
+                            <li className="solutionsLi"> 
                                 <h1>Explanation {i + 1} of {props.solutions.length} </h1><br/>
                                 {ReactHtmlParser(el.post)}
                             </li>
