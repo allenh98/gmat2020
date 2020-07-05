@@ -9,19 +9,7 @@ html, body {
   /* height: 100%; */
 }
 
-.flex-container {
+.mainContainer {
   padding-top:60px;
-  display:flex;
-  flex-direction: row;
-  
-  /* max-height:calc(100vh - 6px); */
 }
 
-.sidebar {
-  width:420px;
-  min-width:420px;
-  max-height:calc(100vh - 60px);
-  overflow-y: scroll;
-  position: fixed;
-
-}

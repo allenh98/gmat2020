@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { mockApi } from '../api/MongoAPI';
 import SideBar from '../bars/SideBar';
+import TopBar from '../bars/TopBar';
 import './Containers.css';
 import AnswerButton from '../answer-form/AnswerButton';
 import Question from '../answer-form/Question';
@@ -19,7 +20,8 @@ interface IContainerProps {
 }
 
 interface IContainerState {
-    submitButtonClicked: boolean,
+    submitButtonClicked: boolean;
+    viewButtonClicked: boolean;
     questionArr: any[];
     activeQuestion: any;
     currentQuestionIndex: number;
@@ -34,6 +36,7 @@ export default class Container extends React.Component<IContainerProps, IContain
         super(props);
         this.state = {
             submitButtonClicked: false,
+            viewButtonClicked: false,
             questionArr: [],
             activeQuestion: {},
             currentQuestionIndex: 0,
@@ -72,6 +75,7 @@ export default class Container extends React.Component<IContainerProps, IContain
         if (this.state.currentQuestionIndex !== index){
             this.setState({
                 submitButtonClicked: false,
+                viewButtonClicked: false,
                 activeQuestion: this.state.questionArr[index],                
                 currentQuestionIndex: index
             })
@@ -97,8 +101,18 @@ export default class Container extends React.Component<IContainerProps, IContain
     }
 
 
-    onSubmitButtonClicked = () => {
-        this.setState({ submitButtonClicked: true });
+    onSubmitButtonClicked = () => {        
+        // show the first answer by default when submit is clicked, but do not hide it upon further submit clicks
+        if (this.state.viewButtonClicked === false) {
+            this.toggleViewSolution();
+        }
+
+
+        this.setState({ 
+            submitButtonClicked: true 
+        });
+
+        
     }
 
     shouldDisableSubmit = () => {
@@ -113,49 +127,60 @@ export default class Container extends React.Component<IContainerProps, IContain
         this.onSidebarClick(this.state.currentQuestionIndex + 1)
     }
 
-    onViewSolutionsButtonClicked = () => {
-        this.setState({
-            activeSolution: this.state.activeQuestion.userAnswers[0]            
-        })
+    toggleViewSolution = () => {
+        if (this.state.viewButtonClicked === false){
+            this.setState({
+                viewButtonClicked: true,
+                activeSolution: this.state.activeQuestion.userAnswers[0]            
+            })
+        } else {
+            this.setState({
+                viewButtonClicked: false,
+                activeSolution: {}                  
+            })
+        }
     }
 
 
+
     render() {
+
+
         return (
             <div className="fullscreen">
-                <div className="topbar">
-                    <div className="top-left-button">                        
-                        <a className="top-left-previous">&#8249;</a>
-                    </div>
-                    <div className="top-middle-bar"/>
-                    <div className="top-right-button1"/>
-                    <div className="top-right-button2">
-                        <img className="avatar" src={process.env.PUBLIC_URL + '/grayuser.png'} alt="logo"></img>
-                        <span className="userfullname">Elle Roh</span>
-                    </div>
-                </div>
+
+                <TopBar/>
+                
+
 
                 {/* everything under the topBar */}
-                <div className="flex-container">
-
+                <div className="mainContainer">
+                    
                     {/* Forward and back buttons */}
                     <a className="sidebutton previous" onClick={this.onPreviousButtonClick}>&#8249;</a>
                     <a className="sidebutton next" onClick={this.onForwardButtonClick}>&#8250;</a>
 
-                    <SideBar questionArr={this.state.questionArr} onSidebarClick={this.onSidebarClick} activeQuestion={this.state.activeQuestion} />
 
+                    <SideBar questionArr={this.state.questionArr} onSidebarClick={this.onSidebarClick} activeQuestion={this.state.activeQuestion} />
+                    
                     {/* main square question/answer/solution centered column */}
                     <div id="Training" className="centered-column">
-                        <Question question={this.state.activeQuestion.question} />
+                            
+                        
+                        <Question question={this.state.activeQuestion.question} idx={this.state.currentQuestionIndex} total={this.state.questionArr.length}/>
                         <MultipleChoiceBox answers={this.state.activeQuestion.answers ? this.state.activeQuestion.answers : []}
                             correctLetter={this.state.activeQuestion.correctLetter} updateSelectedAnswer={this.updateSelectedAnswer}
                             submitButtonClicked={this.state.submitButtonClicked}
                         />
                         <form className="flex-buttons-container">
                             <AnswerButton onSubmitButtonClicked={this.onSubmitButtonClicked} doDisable={this.shouldDisableSubmit()} />
-                            <ViewSolutionsButton className="flex-buttons-container-right" showSolutions={this.onViewSolutionsButtonClicked} />
-                        </form>                        
-                        <Solution solution={this.state.activeSolution}/>
+                            <ViewSolutionsButton className="flex-buttons-container-right" toggleViewSolution={this.toggleViewSolution} viewButtonClicked={this.state.viewButtonClicked}/>
+                        </form>    
+                        
+                        {
+                            this.state.viewButtonClicked && <Solution solution={this.state.activeSolution} solutions={this.state.activeQuestion.userAnswers}/> 
+                        }        
+                      
                     </div>
 
                 </div>

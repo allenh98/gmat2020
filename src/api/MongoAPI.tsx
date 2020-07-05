@@ -95,7 +95,8 @@ const mockObj = [
         userAnswers: [
             {
                 score: 10,
-                post: `Total ways of choosing any 3 out of 5 lengths = 5C3 = 10 ways
+                post: `
+                    Total ways of choosing any 3 out of 5 lengths = 5C3 = 10 ways
     
                     favorable cases which will NOT form Triangle = {2, 3, 5} {2, 3, 6} {2, 4, 6} = 3 cases
                     
@@ -105,23 +106,33 @@ const mockObj = [
             },
             {
                 score: 1,
-                post: `Shitty answer shitty asnwser sdfghsdfghsgfdh,`
+                post: `2 Shitty answer shitty asnwser sdfghsdfghsgfdh,`
             },
             {
                 score: 20,
-                post: `Answer good good good answer good ansdwerAnswer good good good answer good ansdwer Answer good good good answer good ansdwer
+                post: `3 Answer good good good answer good ansdwerAnswer good good good answer good ansdwer Answer good good good answer good ansdwer
+                    Answer choice B`
+            },
+            {
+                score: 20,
+                post: `4 Answer good good good answer good ansdwerAnswer good good good answer good ansdwer Answer good good good answer good ansdwer
+                    Answer choice B`
+            },
+            {
+                score: 20,
+                post: `5 Answer good good good answer good ansdwerAnswer good good good answer good ansdwer Answer good good good answer good ansdwer
                     Answer choice B`
             },
             {
                 score: 23,
-                post: `Total number of ways of selecting 3 lines from the 5 lines provided is 5C3 = 10
+                post: `6 Total number of ways of selecting 3 lines from the 5 lines provided is 5C3 = 10
                     The lines chosen will not form a triangle when the sum of any two lines is not greater than the third line.
                     3 selections fall into this category : {2,3,5}, {2,3,6} and {2.4.6}.
                     Required probability = 3/10.
                     Answer choice B`},
             {
                 score: 2.5,
-                post: `Total number of ways of selecting 3 lines from the 5 lines provided is 5C3 = 10
+                post: `7 Total number of ways of selecting 3 lines from the 5 lines provided is 5C3 = 10
                     The lines chosen will not form a triangle when the sum of any two lines is not greater than the third line.
                     3 selections fall into this category : {2,3,5}, {2,3,6} and {2.4.6}.
                     Required probability = 3/10.
